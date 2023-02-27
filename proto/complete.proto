@@ -1,0 +1,227 @@
+syntax = "proto2";
+
+import "nanopb.proto";
+
+message Settings {
+    optional GamepadOptions gamepadOptions = 1;
+    optional BoardOptions boardOptions = 2;
+    optional AddonOptions addonOptions = 3;
+    optional SplashImage splashImage = 4;
+    optional LEDOptions ledOptions = 5;
+}
+
+enum InputMode {
+    XInput = 0;
+    Switch = 1;
+    Hid = 2;
+    Config = 255;
+}
+
+enum DpadMode {
+    Digital = 0;
+    LeftAnalog = 1;
+    RightAnalog = 2;
+}
+
+message GamepadOptions {
+    optional InputMode inputMode = 1;
+    optional DpadMode dpadMode = 2;
+}
+
+enum ButtonLayout {
+    BUTTON_LAYOUT_STICK = 0;
+    BUTTON_LAYOUT_STICKLESS = 1;
+    BUTTON_LAYOUT_BUTTONS_ANGLED = 2;
+    BUTTON_LAYOUT_BUTTONS_BASIC = 3;
+    BUTTON_LAYOUT_KEYBOARD_ANGLED = 4;
+    BUTTON_LAYOUT_KEYBOARDA = 5;
+    BUTTON_LAYOUT_DANCEPADA = 6;
+    BUTTON_LAYOUT_TWINSTICKA = 7;
+    BUTTON_LAYOUT_BLANKA = 8;
+    BUTTON_LAYOUT_VLXA = 9;
+    BUTTON_LAYOUT_FIGHTBOARD_STICK = 10;
+    BUTTON_LAYOUT_FIGHTBOARD_MIRRORED = 11;
+    BUTTON_LAYOUT_CUSTOMA = 12;
+}
+
+enum ButtonLayoutRight {
+    BUTTON_LAYOUT_ARCADE = 1;
+    BUTTON_LAYOUT_STICKLESSB = 2;
+    BUTTON_LAYOUT_BUTTONS_ANGLEDB = 3;
+    BUTTON_LAYOUT_VEWLIX = 4;
+    BUTTON_LAYOUT_VEWLIX7 = 5;
+    BUTTON_LAYOUT_CAPCOM = 6;
+    BUTTON_LAYOUT_CAPCOM6 = 7;
+    BUTTON_LAYOUT_SEGA2P = 8;
+    BUTTON_LAYOUT_NOIR8 = 9;
+    BUTTON_LAYOUT_KEYBOARDB = 10;
+    BUTTON_LAYOUT_DANCEPADB = 11;
+    BUTTON_LAYOUT_TWINSTICKB = 12;
+    BUTTON_LAYOUT_BLANKB = 13;
+    BUTTON_LAYOUT_VLXB = 14;
+    BUTTON_LAYOUT_FIGHTBOARD = 15;
+    BUTTON_LAYOUT_FIGHTBOARD_STICK_MIRRORED = 16;
+    BUTTON_LAYOUT_CUSTOMB = 17;
+}
+
+message ButtonLayoutParams {
+    oneof layout {
+        ButtonLayout left = 1;
+        ButtonLayoutRight right = 2;
+    }
+    optional int32 startX = 3;
+    optional int32 startY = 4;
+    optional int32 buttonRadius = 5;
+    optional int32 buttonPadding = 6;
+}
+
+message ButtonLayoutCustomOptions {
+    optional ButtonLayoutParams params = 1;
+    optional ButtonLayoutParams paramsRight = 2;
+}
+
+enum SplashMode {
+    STATICSPLASH = 0;
+    CLOSEIN = 1;
+    CLOSEINCUSTOM = 2;
+    NOSPLASH = 3;
+}
+
+enum SplashChoice {
+    MAIN = 0;
+    X = 1;
+    Y = 2;
+    Z = 3;
+    CUSTOM = 4;
+    LEGACY = 5;
+}
+
+message BoardOptions {
+    optional bool hasBoardOptions = 1;
+    optional int32 pinDpadUp = 2;
+    optional int32 pinDpadDown = 3;
+    optional int32 pinDpadLeft = 4;
+    optional int32 pinDpadRight = 5;
+    optional int32 pinButtonB1 = 6;
+    optional int32 pinButtonB2 = 7;
+    optional int32 pinButtonB3 = 8;
+    optional int32 pinButtonB4 = 9;
+    optional int32 pinButtonL1 = 10;
+    optional int32 pinButtonR1 = 11;
+    optional int32 pinButtonL2 = 12;
+    optional int32 pinButtonR2 = 13;
+    optional int32 pinButtonS1 = 14;
+    optional int32 pinButtonS2 = 15;
+    optional int32 pinButtonL3 = 16;
+    optional int32 pinButtonR3 = 17;
+    optional int32 pinButtonA1 = 18;
+    optional int32 pinButtonA2 = 19;
+    optional ButtonLayout buttonLayout = 20;
+    optional ButtonLayoutRight buttonLayoutRight = 21;
+    optional SplashMode splashMode = 22;
+    optional SplashChoice splashChoice = 23;
+    optional int32 splashDuration = 24;
+    optional int32 i2cSDAPin = 25;
+    optional int32 i2cSCLPin = 26;
+    optional int32 i2cBlock = 27;
+    optional uint32 i2cSpeed = 28;
+    optional bool hasI2CDisplay = 29;
+    optional int32 displayI2CAddress = 30;
+    optional int32 displaySize = 31;
+    optional int32 displayFlip = 32;
+    optional bool displayInvert = 33;
+    optional int32 displaySaverTimeout = 34;
+    optional ButtonLayoutCustomOptions buttonLayoutCustomOptions = 35;
+    optional string boardVersion = 36 [default = "v0.6.1", (nanopb).max_size = 32];
+};
+
+enum OnBoardLedMode {
+    BOARD_LED_OFF = 0;
+    MODE_INDICATOR = 1;
+    INPUT_TEST = 2;
+}
+
+message AddonOptions {
+    optional uint32 pinButtonTurbo = 1;
+    optional uint32 pinButtonReverse = 2;
+    optional uint32 pinSliderLS = 3;
+    optional uint32 pinSliderRS = 4;
+    optional uint32 turboShotCount = 5; // Turbo
+    optional uint32 pinTurboLED = 6;    // Turbo LED
+    optional uint32 pinReverseLED = 7;    // Reverse LED
+    optional uint32 reverseActionUp = 8;
+    optional uint32 reverseActionDown = 9;
+    optional uint32 reverseActionLeft = 10;
+    optional uint32 reverseActionRight = 11;
+    optional uint32 i2cAnalog1219SDAPin = 12;
+    optional uint32 i2cAnalog1219SCLPin = 13;
+    optional int32 i2cAnalog1219Block = 14;
+    optional uint32 i2cAnalog1219Speed = 15;
+    optional uint32 i2cAnalog1219Address = 16;
+    optional uint32 pinDualDirUp = 17;    // Pins for Dual Directional Input
+    optional uint32 pinDualDirDown = 18;
+    optional uint32 pinDualDirLeft = 19;
+    optional uint32 pinDualDirRight = 20;
+    optional DpadMode dualDirDpadMode = 21;    // LS/DP/RS
+    optional uint32 dualDirCombineMode = 22; // Mix/Gamepad/Dual/None
+    optional OnBoardLedMode onBoardLedMode = 23;
+    optional uint32 analogAdcPinX = 24;
+    optional uint32 analogAdcPinY = 25;
+    optional uint32 bootselButtonMap = 26;
+    optional uint32 extraButtonPin = 27;
+    optional uint32 extraButtonMap = 28;
+    optional uint32 buzzerPin = 29;
+    optional uint32 buzzerVolume = 30;
+    optional uint32 playerNumber = 31;
+    optional bool AnalogInputEnabled = 32;
+    optional bool BoardLedAddonEnabled = 33;
+    optional bool BootselButtonAddonEnabled = 34;
+    optional bool BuzzerSpeakerAddonEnabled = 35;
+    optional bool DualDirectionalInputEnabled = 36;
+    optional bool ExtraButtonAddonEnabled = 37;
+    optional bool I2CAnalog1219InputEnabled = 39;
+    optional bool JSliderInputEnabled = 40;
+    optional bool PlayerNumAddonEnabled = 41;
+    optional bool ReverseInputEnabled = 42;
+    optional bool TurboInputEnabled = 43;
+};
+
+message SplashImage {
+    optional bytes data = 1 [(nanopb).max_size = 1024, (nanopb).fixed_length = true];
+}
+
+enum LEDFormat {
+  LED_FORMAT_GRB = 0;
+  LED_FORMAT_RGB = 1;
+  LED_FORMAT_GRBW = 2;
+  LED_FORMAT_RGBW = 3;
+}
+
+message LEDOptions
+{
+    optional bool useUserDefinedLEDs = 1;
+    optional int32 dataPin = 2;
+    optional LEDFormat ledFormat = 3;
+    optional ButtonLayout ledLayout = 4;
+    optional uint32 ledsPerButton = 5;
+    optional uint32 brightnessMaximum = 6;
+    optional uint32 brightnessSteps = 7;
+    optional int32 indexUp = 8;
+    optional int32 indexDown = 9;
+    optional int32 indexLeft = 10;
+    optional int32 indexRight = 11;
+    optional int32 indexB1 = 12;
+    optional int32 indexB2 = 13;
+    optional int32 indexB3 = 14;
+    optional int32 indexB4 = 15;
+    optional int32 indexL1 = 16;
+    optional int32 indexR1 = 17;
+    optional int32 indexL2 = 18;
+    optional int32 indexR2 = 19;
+    optional int32 indexS1 = 20;
+    optional int32 indexS2 = 21;
+    optional int32 indexL3 = 22;
+    optional int32 indexR3 = 23;
+    optional int32 indexA1 = 24;
+    optional int32 indexA2 = 25;
+};

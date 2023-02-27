@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+import "nanopb.proto";
+
+message Settings {
+    optional GamepadOptions gamepadOptions = 1;
+    optional BoardOptions boardOptions = 2;
+    optional BuzzerAddon buzzerAddon = 3;
+}
+
+enum InputMode {
+    XInput = 0;
+    Switch = 1;
+    Hid = 2;
+    Config = 255;
+}
+
+enum DpadMode {
+    Digital = 0;
+    LeftAnalog = 1;
+    RightAnalog = 2;
+}
+
+message GamepadOptions {
+    optional InputMode inputMode = 1;
+    optional DpadMode dpadMode = 2;
+    optional bool invertXAxis = 3;
+	optional bool invertYAxis = 4;
+}
+
+message BoardOptions {
+    optional int32 pinDpadUp = 1 [default = 2];
+    optional int32 pinDpadDown = 2 [default = 3];
+    optional int32 pinDpadLeft = 3 [default = 4];
+    optional int32 pinDpadRight = 4 [default = 5];
+    optional int32 pinButtonB1 = 5 [default = 6];
+    optional int32 pinButtonB2 = 6 [default = 7];
+}
+
+message BuzzerAddon {
+    optional bool enabled = 1;
+    optional int32 pin = 2 [default = -1];
+    optional uint32 volume = 3 [default = 100];
+}
