@@ -3,8 +3,8 @@ syntax = "proto2";
 import "nanopb.proto";
 
 message Settings {
-    optional GamepadOptions gamepadOptions = 1 [(nanopb).default_has = true];
-    optional BoardOptions boardOptions = 2 [(nanopb).default_has = true];
+    optional GamepadOptions gamepadOptions = 1;
+    optional BoardOptions boardOptions = 2;
 }
 
 enum InputMode {

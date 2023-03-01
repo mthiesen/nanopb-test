@@ -74,7 +74,7 @@ extern "C" {
 
 
 /* Initializer values for message structs */
-#define Settings_init_default                    {true, GamepadOptions_init_default, true, BoardOptions_init_default}
+#define Settings_init_default                    {false, GamepadOptions_init_default, false, BoardOptions_init_default}
 #define GamepadOptions_init_default              {false, _InputMode_MIN, false, _DpadMode_MIN}
 #define BoardOptions_init_default                {false, 2, false, 3, false, 4, false, 5, false, 6, false, 7}
 #define Settings_init_zero                       {false, GamepadOptions_init_zero, false, BoardOptions_init_zero}
