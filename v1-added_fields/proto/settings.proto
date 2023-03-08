@@ -1,7 +1,5 @@
 syntax = "proto2";
 
-import "nanopb.proto";
-
 message Settings {
     optional GamepadOptions gamepadOptions = 1;
     optional BoardOptions boardOptions = 2;

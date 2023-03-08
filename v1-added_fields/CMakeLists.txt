@@ -1,19 +1,21 @@
 cmake_minimum_required(VERSION 3.13)
 
 include(../pico_sdk_import.cmake)
+include(../gen_settings_proto.cmake)
 
 project(v1-added_fields LANGUAGES C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
+gen_settings_proto()
 
 add_subdirectory(../lib lib)
 
 add_executable(${PROJECT_NAME}
 main.cpp
 ../common/settings.cpp
-proto/settings.pb.c
+${PROTO_OUTPUT_DIR}/settings.pb.c
 )
 
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
@@ -21,7 +23,7 @@ pico_enable_stdio_uart(${PROJECT_NAME} 0)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
 ../common/
-proto/
+${PROTO_OUTPUT_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
