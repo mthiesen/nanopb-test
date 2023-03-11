@@ -35,8 +35,20 @@ jobs:
         id: core_count
         run: cat /proc/cpuinfo  | grep processor | wc -l
 
-      - name: Configure CMake
+      - name: v0-base - Configure CMake
         run: PICO_SDK_PATH=${{github.workspace}}/pico-sdk cmake ${{github.workspace}}/v0-base -B ${{github.workspace}}/v0-base/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-      - name: Build
+      - name: v0-base - Build
         run: cmake --build ${{github.workspace}}/v0-base/build --config ${{env.BUILD_TYPE}} --parallel ${{steps.core_count.outputs.output}}
+
+      - name: v1-added_fields - Configure CMake
+        run: PICO_SDK_PATH=${{github.workspace}}/pico-sdk cmake ${{github.workspace}}/v1-added_fields -B ${{github.workspace}}/v1-added_fields/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: v1-added_fields - Build
+        run: cmake --build ${{github.workspace}}/v1-added_fields/build --config ${{env.BUILD_TYPE}} --parallel ${{steps.core_count.outputs.output}}
+
+      - name: v2-removed_fields - Configure CMake
+        run: PICO_SDK_PATH=${{github.workspace}}/pico-sdk cmake ${{github.workspace}}/v2-removed_fields -B ${{github.workspace}}/v2-removed_fields/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: v2-removed_fields - Build
+        run: cmake --build ${{github.workspace}}/v2-removed_fields/build --config ${{env.BUILD_TYPE}} --parallel ${{steps.core_count.outputs.output}}
