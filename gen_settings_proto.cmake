@@ -3,7 +3,11 @@ function (gen_settings_proto)
 
     set(VENV ${CMAKE_CURRENT_BINARY_DIR}/venv)
     set(VENV_FILE ${VENV}/environment.txt)
-    set(VENV_BIN_DIR ${VENV}/Scripts)
+    if(CMAKE_HOST_WIN32)
+        set(VENV_BIN_DIR ${VENV}/Scripts)
+    else()
+        set(VENV_BIN_DIR ${VENV}/bin)
+    endif()
 
     add_custom_command(
         DEPENDS ${CMAKE_SOURCE_DIR}/../lib/nanopb/extra/requirements.txt
